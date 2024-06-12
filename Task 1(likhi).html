@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Interactive Navigation Menu</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f6;
+        }
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #007bff;
+            padding: 10px 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        nav.scrolled {
+            background-color: #0056b3;
+        }
+        nav .logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+        nav ul li {
+            margin: 0 15px;
+            position: relative;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            transition: color 0.3s, background-color 0.3s;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        nav ul li a:hover, nav ul li a.active {
+            color: #007bff;
+            background-color: #fff;
+        }
+        nav ul li ul {
+            display: none;
+            position: absolute;
+            top: 40px;
+            left: 0;
+            background-color: #007bff;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        nav ul li:hover ul {
+            display: block;
+        }
+        nav ul li ul li {
+            margin: 0;
+        }
+        nav ul li ul li a {
+            display: block;
+            padding: 10px 15px;
+            white-space: nowrap;
+        }
+        main {
+            margin-top: 80px;
+            padding: 20px;
+        }
+        section {
+            padding: 100px 0;
+            border-bottom: 1px solid #ccc;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #007bff;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        footer .social-icons {
+            margin-top: 10px;
+        }
+        footer .social-icons a {
+            color: white;
+            margin: 0 10px;
+            font-size: 24px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        footer .social-icons a:hover {
+            color: #0056b3;
+        }
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                display: none;
+                background-color: #007bff;
+                width: 100%;
+                position: absolute;
+                top: 60px;
+                left: 0;
+            }
+            nav ul.active {
+                display: flex;
+            }
+            nav .menu-toggle {
+                display: block;
+                cursor: pointer;
+                color: white;
+                font-size: 24px;
+            }
+            nav ul li ul {
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<nav id="navbar">
+    <div class="logo">MyLogo</div>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    <ul id="nav-links">
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#team">Team</a></li>
+        <li><a href="#projects">Projects</a>
+            <ul>
+                <li><a href="#web-development">Web Development</a></li>
+                <li><a href="#app-development">App Development</a></li>
+                <li><a href="#graphic-design">Graphic Design</a></li>
+            </ul>
+        </li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav>
+
+<main>
+    <section id="overview">
+        <h1>Overview Section</h1>
+        <p>Welcome to the overview section of this interactive page.</p>
+    </section>
+    <section id="team">
+        <h1>Team Section</h1>
+        <p>This section contains information about the team.</p>
+    </section>
+    <section id="projects">
+        <h1>Projects Section</h1>
+        <p>Details about the projects we have completed will be found here.</p>
+    </section>
+    <section id="web-development">
+        <h1>Web Development</h1>
+        <p>Information about our web development services.</p>
+    </section>
+    <section id="app-development">
+        <h1>App Development</h1>
+        <p>Details about our app development services.</p>
+    </section>
+    <section id="graphic-design">
+        <h1>Graphic Design</h1>
+        <p>Information about our graphic design services.</p>
+    </section>
+    <section id="contact">
+        <h1>Contact Section</h1>
+        <p>Get in touch with us through this section.</p>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2024 Interactive Navigation Menu</p>
+    <div class="social-icons">
+        <a href="https://www.facebook.com" target="_blank">🔵</a>
+        <a href="https://www.twitter.com" target="_blank">🐦</a>
+        <a href="https://www.instagram.com" target="_blank">📸</a>
+        <a href="https://www.linkedin.com" target="_blank">🔗</a>
+    </div>
+</footer>
+
+<script>
+    window.addEventListener('scroll', function() {
+        const navbar = document.getElementById('navbar');
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('nav ul li a');
+
+        sections.forEach((section, i) => {
+            if (window.scrollY >= section.offsetTop - 70) {
+                navLinks.forEach(link => link.classList.remove('active'));
+                navLinks[i].classList.add('active');
+            }
+        });
+    });
+
+    document.querySelectorAll('nav ul li a').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+
+    function toggleMenu() {
+        const navLinks = document.getElementById('nav-links');
+        navLinks.classList.toggle('active');
+    }
+</script>
+
+</body>
+</html>
